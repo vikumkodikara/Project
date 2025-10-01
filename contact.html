@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us - QR Pro Studio</title>
+  <meta name="description" content="Get in touch with QR Pro Studio. We're here to help with your QR code needs and answer any questions." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Styles -->
+  <style>
+    :root {
+      --bg-primary: #0a0b0f;
+      --bg-secondary: #111318;
+      --bg-tertiary: #1a1d24;
+      --surface: #262a32;
+      --surface-hover: #2f3540;
+      --border: #343943;
+      --border-light: #454b57;
+      --text-primary: #ffffff;
+      --text-secondary: #b4bcd0;
+      --text-muted: #8892a8;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #6366f1;
+      --accent-success: #10b981;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+      --gradient-surface: linear-gradient(135deg, #262a32 0%, #1f232a 100%);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 32px rgba(59, 130, 246, 0.2);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Container & Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .main-layout {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 11, 15, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .header:hover::before {
+      opacity: 1;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .brand:hover {
+      transform: translateY(-1px);
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      box-shadow: var(--shadow-glow);
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: rotate(10deg) scale(1.05);
+      box-shadow: var(--shadow-glow), var(--shadow-md);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link.active {
+      color: var(--accent-primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 40px 0 60px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 968px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--gradient-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-light);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .card-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    /* Contact Methods */
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .contact-method:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-light);
+      transform: translateX(4px);
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .email-icon {
+      background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
+    }
+
+    .facebook-icon {
+      background: linear-gradient(135deg, #1877f2 0%, #166fe5 100%);
+    }
+
+    .instagram-icon {
+      background: linear-gradient(135deg, #e4405f 0%, #d1245e 100%);
+    }
+
+    .contact-info h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .contact-info p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Form Styles */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .form-input, .form-textarea {
+      padding: 14px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 15px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: var(--bg-tertiary);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Button */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    /* Social Links */
+    .social-section {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .social-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .social-link.facebook:hover {
+      border-color: #1877f2;
+      box-shadow: 0 0 20px rgba(24, 119, 242, 0.3);
+    }
+
+    .social-link.instagram:hover {
+      border-color: #e4405f;
+      box-shadow: 0 0 20px rgba(228, 64, 95, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--text-primary);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .hero {
+        padding: 60px 0 40px;
+      }
+
+      .nav {
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .social-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .social-link {
+        min-width: 200px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="index.html" class="brand">
+            <div class="logo">
+              <i class="fas fa-qrcode"></i>
+            </div>
+            QR Pro Studio
+          </a>
+          <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link active">Contact</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Get In Touch</h1>
+          <p class="hero-subtitle">
+            Have questions about our QR code solutions? Want to collaborate or provide feedback? 
+            We'd love to hear from you!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact Information -->
+          <div class="card fade-in-up">
+            <h2 class="card-title">Contact Information</h2>
+            <p class="card-subtitle">
+              Reach out to us through any of these channels. We typically respond within 24 hours.
+            </p>
+
+            <div class="contact-methods">
+              <a href="mailto:vikumkodikara123@gmail.com" class="contact-method">
+                <div class="contact-icon email-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-info">
+                  <h3>Email Us</h3>
+                  <p>vikumkodikara123@gmail.com</p>
+                </div>
+              </a>
+
+              <a href="https://www.facebook.com/nimanthav.kodikara.1" target="_blank" rel="noopener noreferrer" class="contact-method">
+                <div class="contact-icon facebook-icon">
+                  <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="contact-info">
+                  <h3>Facebook</h3>
+                  <p>Connect with us on Facebook</p>
+                </div>
+              </a>
+
+              <a href="https://www.instagram.com/nimantha_v_kodikara?igsh=azV6bjZvOXZmc281" target="_blank" rel="noopener noreferrer" class="contact-method">
+                <div class="contact-icon instagram-icon">
+                  <i class="fab fa-instagram"></i>
+                </div>
+                <div class="contact-info">
+                  <h3>Instagram</h3>
+                  <p>Follow us for updates and tips</p>
+                </div>
+              </a>
+            </div>
+
+            <!-- Social Media Section -->
+            <div class="social-section">
+              <h3 class="social-title">Follow Us</h3>
+              <div class="social-links">
+                <a href="https://www.facebook.com/nimanthav.kodikara.1" target="_blank" rel="noopener noreferrer" class="social-link facebook">
+                  <i class="fab fa-facebook-f"></i>
+                  Facebook
+                </a>
+                <a href="https://www.instagram.com/nimantha_v_kodikara?igsh=azV6bjZvOXZmc281" target="_blank" rel="noopener noreferrer" class="social-link instagram">
+                  <i class="fab fa-instagram"></i>
+                  Instagram
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="card fade-in-up">
+            <h2 class="card-title">Send us a Message</h2>
+            <p class="card-subtitle">
+              Fill out the form below and we'll get back to you as soon as possible.
+            </p>
+
+            <form class="contact-form" action="mailto:vikumkodikara123@gmail.com" method="post" enctype="text/plain">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input type="text" id="firstName" name="firstName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" class="form-input" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" id="subject" name="subject" class="form-input" required>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" class="form-textarea" placeholder="Tell us how we can help you..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i>
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="card fade-in-up" style="margin-top: 40px;">
+          <h2 class="card-title">Why Contact Us?</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; margin-top: 24px;">
+            <div style="text-align: center;">
+              <div style="width: 64px; height: 64px; background: var(--gradient-primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; margin: 0 auto 16px;">
+                <i class="fas fa-question-circle"></i>
+              </div>
+              <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Technical Support</h3>
+              <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">
+                Need help with QR code generation or have technical questions? We're here to assist.
+              </p>
+            </div>
+
+            <div style="text-align: center;">
+              <div style="width: 64px; height: 64px; background: var(--gradient-primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; margin: 0 auto 16px;">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Feature Requests</h3>
+              <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">
+                Have ideas for new features? We value your feedback and suggestions for improvement.
+              </p>
+            </div>
+
+            <div style="text-align: center;">
+              <div style="width: 64px; height: 64px; background: var(--gradient-primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; margin: 0 auto 16px;">
+                <i class="fas fa-handshake"></i>
+              </div>
+              <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Business Inquiries</h3>
+              <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">
+                Interested in partnerships, collaborations, or custom solutions? Let's discuss opportunities.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <span>© 2025 QR Pro Studio. All rights reserved.</span>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="about.html" class="footer-link">About</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

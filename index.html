@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR Pro Studio — Professional QR Code Generator</title>
+  <meta name="description" content="Create professional QR codes instantly. Advanced features, multiple formats, and enterprise-ready quality." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Styles -->
+  <style>
+    :root {
+      --bg-primary: #0a0b0f;
+      --bg-secondary: #111318;
+      --bg-tertiary: #1a1d24;
+      --surface: #262a32;
+      --surface-hover: #2f3540;
+      --border: #343943;
+      --border-light: #454b57;
+      --text-primary: #ffffff;
+      --text-secondary: #b4bcd0;
+      --text-muted: #8892a8;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #6366f1;
+      --accent-success: #10b981;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+      --gradient-surface: linear-gradient(135deg, #262a32 0%, #1f232a 100%);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 32px rgba(59, 130, 246, 0.2);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Container & Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .main-layout {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 11, 15, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .header:hover::before {
+      opacity: 1;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .brand:hover {
+      transform: translateY(-1px);
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      box-shadow: var(--shadow-glow);
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: rotate(10deg) scale(1.05);
+      box-shadow: var(--shadow-glow), var(--shadow-md);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link.active {
+      color: var(--accent-primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 40px 0;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .app-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--gradient-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-light);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .card-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      font-size: 15px;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: var(--bg-tertiary);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Preset Buttons */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .preset-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .preset-btn:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-light);
+      transform: translateY(-1px);
+      color: var(--text-primary);
+    }
+
+    .preset-btn.active {
+      background: var(--gradient-primary);
+      border-color: var(--accent-primary);
+      color: white;
+    }
+
+    /* Action Buttons */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .action-btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .action-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .action-btn-secondary {
+      background: var(--surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .action-btn-secondary:hover {
+      background: var(--surface-hover);
+      transform: translateY(-1px);
+    }
+
+    /* QR Display */
+    .qr-display {
+      background: var(--bg-secondary);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      margin: 32px 0;
+      transition: all 0.3s ease;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-display:hover {
+      border-color: var(--border-light);
+      background: var(--bg-tertiary);
+    }
+
+    .qr-display.has-qr {
+      border-style: solid;
+      border-color: var(--accent-primary);
+      background: white;
+      box-shadow: var(--shadow-md);
+    }
+
+    #qrcode {
+      display: inline-block;
+    }
+
+    #qrcode img, #qrcode canvas {
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .qr-placeholder {
+      color: var(--text-muted);
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .qr-placeholder i {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+      display: block;
+    }
+
+    /* Messages */
+    .message {
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 16px;
+      border: 1px solid;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .message.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: var(--accent-success);
+    }
+
+    .message.error {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: var(--accent-danger);
+    }
+
+    .message.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: var(--accent-warning);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 120px;
+    }
+
+    .features-list {
+      list-style: none;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature-item:last-child {
+      border-bottom: none;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .feature-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .feature-content p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--text-primary);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .hero {
+        padding: 60px 0 40px;
+      }
+
+      .nav {
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .action-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .preset-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-layout">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="index.html" class="brand">
+            <div class="logo">
+              <i class="fas fa-qrcode"></i>
+            </div>
+            QR Pro Studio
+          </a>
+          <div class="nav-links">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Professional QR Code Generator</h1>
+          <p class="hero-subtitle">
+            Create enterprise-quality QR codes with advanced customization options. 
+            Perfect for businesses, marketing campaigns, and professional applications.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="document.getElementById('content').focus()">
+              <i class="fas fa-rocket"></i>
+              Start Creating
+            </button>
+            <a href="about.html" class="btn btn-secondary">
+              <i class="fas fa-info-circle"></i>
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="app-grid">
+          <!-- QR Generator Card -->
+          <div class="card fade-in-up">
+            <h2 class="card-title">QR Code Generator</h2>
+            <p class="card-subtitle">
+              Generate professional QR codes with advanced features and multiple format support. 
+              Optimized for maximum scan reliability and professional appearance.
+            </p>
+
+            <!-- Preset Templates -->
+            <div class="preset-grid">
+              <button class="preset-btn" onclick="setPreset('url')" data-preset="url">
+                <i class="fas fa-globe"></i>
+                Website URL
+              </button>
+              <button class="preset-btn" onclick="setPreset('wifi')" data-preset="wifi">
+                <i class="fas fa-wifi"></i>
+                Wi-Fi Network
+              </button>
+              <button class="preset-btn" onclick="setPreset('text')" data-preset="text">
+                <i class="fas fa-file-text"></i>
+                Plain Text
+              </button>
+              <button class="preset-btn" onclick="setPreset('email')" data-preset="email">
+                <i class="fas fa-envelope"></i>
+                Email Address
+              </button>
+              <button class="preset-btn" onclick="setPreset('phone')" data-preset="phone">
+                <i class="fas fa-phone"></i>
+                Phone Number
+              </button>
+              <button class="preset-btn" onclick="setPreset('sms')" data-preset="sms">
+                <i class="fas fa-sms"></i>
+                SMS Message
+              </button>
+            </div>
+
+            <!-- Content Input -->
+            <div class="form-group">
+              <label for="content" class="form-label">
+                <i class="fas fa-edit"></i>
+                Content
+              </label>
+              <textarea 
+                id="content" 
+                class="form-textarea" 
+                placeholder="Enter your content here... (URL, text, Wi-Fi credentials, etc.)"
+                oninput="generateQR()"
+              ></textarea>
+            </div>
+
+            <!-- Settings Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="size" class="form-label">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                  Size
+                </label>
+                <select id="size" class="form-select" onchange="generateQR()">
+                  <option value="200">Small (200×200px)</option>
+                  <option value="300" selected>Medium (300×300px)</option>
+                  <option value="400">Large (400×400px)</option>
+                  <option value="512">Extra Large (512×512px)</option>
+                  <option value="800">Ultra (800×800px)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="errorLevel" class="form-label">
+                  <i class="fas fa-shield-alt"></i>
+                  Error Correction
+                </label>
+                <select id="errorLevel" class="form-select" onchange="generateQR()">
+                  <option value="L">Low (7%)</option>
+                  <option value="M">Medium (15%)</option>
+                  <option value="Q">Quartile (25%)</option>
+                  <option value="H" selected>High (30%)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-grid">
+              <button class="action-btn action-btn-primary" onclick="generateQR()">
+                <i class="fas fa-magic"></i>
+                Generate QR
+              </button>
+              <button class="action-btn action-btn-secondary" onclick="downloadQR()">
+                <i class="fas fa-download"></i>
+                Download PNG
+              </button>
+              <button class="action-btn action-btn-secondary" onclick="copyContent()">
+                <i class="fas fa-copy"></i>
+                Copy Content
+              </button>
+              <button class="action-btn action-btn-secondary" onclick="clearAll()">
+                <i class="fas fa-trash"></i>
+                Clear All
+              </button>
+            </div>
+
+            <!-- QR Display Area -->
+            <div class="qr-display" id="qrDisplay">
+              <div id="qrcode"></div>
+              <div class="qr-placeholder" id="qrPlaceholder">
+                <i class="fas fa-qrcode"></i>
+                <div>Your QR code will appear here</div>
+              </div>
+            </div>
+
+            <!-- Message Area -->
+            <div id="message" class="message"></div>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+            <div class="card fade-in-up">
+              <h3 class="card-title">Professional Features</h3>
+              <ul class="features-list">
+                <li class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h3>Lightning Fast</h3>
+                    <p>Generate QR codes instantly with optimized performance and real-time preview.</p>
+                  </div>
+                </li>
+                <li class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h3>Mobile Optimized</h3>
+                    <p>Perfect scanning reliability across all devices and QR code reader apps.</p>
+                  </div>
+                </li>
+                <li class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-palette"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h3>Professional Design</h3>
+                    <p>Clean, high-contrast design ensures maximum readability and professional appearance.</p>
+                  </div>
+                </li>
+                <li class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h3>Error Correction</h3>
+                    <p>Advanced error correction levels protect against damage and ensure reliable scanning.</p>
+                  </div>
+                </li>
+                <li class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-download"></i>
+                  </div>
+                  <div class="feature-content">
+                    <h3>High Quality Export</h3>
+                    <p>Download in multiple resolutions, perfect for print and digital applications.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <span>© 2025 QR Pro Studio. All rights reserved.</span>
+          <div class="footer-links">
+            <a href="index.html" class="footer-link">Home</a>
+            <a href="about.html" class="footer-link">About</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- QRCode.js -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
+  <!-- App logic -->
+  <script>
+    let qr = null;
+
+    function setPreset(type) {
+      // Remove active class from all preset buttons
+      document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+      
+      // Add active class to clicked button
+      document.querySelector(`[data-preset="${type}"]`).classList.add('active');
+      
+      const contentField = document.getElementById('content');
+      
+      switch(type) {
+        case 'url':  
+          contentField.value = 'https://qrprostudio.com'; 
+          break;
+        case 'wifi': 
+          contentField.value = 'WIFI:T:WPA;S:MyNetwork;P:MyPassword;;'; 
+          break;
+        case 'text': 
+          contentField.value = 'Welcome to QR Pro Studio!'; 
+          break;
+        case 'email':
+          contentField.value = 'mailto:vikumkodikara123@gmail.com?subject=Hello&body=Hi there!'; 
+          break;
+        case 'phone':
+          contentField.value = 'tel:+1234567890'; 
+          break;
+        case 'sms':
+          contentField.value = 'sms:+1234567890?body=Hello from QR Pro Studio!'; 
+          break;
+      }
+      generateQR();
+    }
+
+    function levelMap(val) {
+      return QRCode.CorrectLevel[val] ?? QRCode.CorrectLevel.H;
+    }
+
+    function generateQR() {
+      const content = document.getElementById('content').value.trim();
+      const size = parseInt(document.getElementById('size').value, 10);
+      const errorLevel = document.getElementById('errorLevel').value;
+
+      const qrCodeContainer = document.getElementById('qrcode');
+      const qrDisplay = document.getElementById('qrDisplay');
+      const qrPlaceholder = document.getElementById('qrPlaceholder');
+      
+      qrCodeContainer.innerHTML = '';
+      
+      if (!content) {
+        qrDisplay.classList.remove('has-qr');
+        qrPlaceholder.style.display = 'block';
+        showMessage('Enter some content to generate a QR code.', 'error');
+        return;
+      }
+
+      try {
+        qr = new QRCode(qrCodeContainer, {
+          text: content,
+          width: size,
+          height: size,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: levelMap(errorLevel)
+        });
+        
+        qrDisplay.classList.add('has-qr');
+        qrPlaceholder.style.display = 'none';
+        showMessage('✅ QR code generated successfully! Ready for download.', 'success');
+      } catch (error) {
+        showMessage('❌ Error generating QR code. Please check your content.', 'error');
+      }
+    }
+
+    function downloadQR() {
+      if (!qr) {
+        showMessage('⚠️ Generate a QR code first.', 'error');
+        return;
+      }
+
+      const img = document.querySelector('#qrcode img');
+      const canvas = document.querySelector('#qrcode canvas');
+      let src = null;
+
+      if (img) {
+        src = img.src;
+      } else if (canvas) {
+        src = canvas.toDataURL('image/png');
+      }
+
+      if (!src) {
+        showMessage('❌ Could not access QR code image data.', 'error');
+        return;
+      }
+
+      const link = document.createElement('a');
+      link.href = src;
+      link.download = `qr-code-${Date.now()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      showMessage('⬇️ QR code downloaded successfully!', 'success');
+    }
+
+    function copyContent() {
+      const content = document.getElementById('content');
+      if (!content.value.trim()) {
+        showMessage('⚠️ Nothing to copy.', 'error');
+        return;
+      }
+
+      navigator.clipboard.writeText(content.value).then(
+        () => showMessage('📋 Content copied to clipboard!', 'success'),
+        () => showMessage('❌ Failed to copy content.', 'error')
+      );
+    }
+
+    function clearAll() {
+      document.getElementById('content').value = '';
+      document.getElementById('qrcode').innerHTML = '';
+      document.getElementById('qrDisplay').classList.remove('has-qr');
+      document.getElementById('qrPlaceholder').style.display = 'block';
+      
+      // Remove active class from all preset buttons
+      document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+      
+      qr = null;
+      showMessage('🧹 All content cleared.', 'success');
+    }
+
+    function showMessage(message, type) {
+      const messageBox = document.getElementById('message');
+      messageBox.textContent = message;
+      messageBox.className = `message ${type}`;
+      messageBox.style.display = 'flex';
+      
+      clearTimeout(window.messageTimeout);
+      window.messageTimeout = setTimeout(() => {
+        messageBox.style.display = 'none';
+      }, 4000);
+    }
+
+    // Initialize app
+    window.addEventListener('DOMContentLoaded', () => {
+      // Set default content
+      document.getElementById('content').value = 'Welcome to QR Pro Studio! 🚀';
+      generateQR();
+      
+      // Add fade-in animation
+      setTimeout(() => {
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+          el.style.opacity = '1';
+        });
+      }, 100);
+    });
+  </script>
+</body>
+</html>
